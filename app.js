@@ -1,18 +1,18 @@
 const express = require('express');
-const produtosRouter = require('./routes/produtos');
-const db = require('./config/db')
+const eventosRouter = require('./routes/produtos');
+const {db, testarConexao} = require('./config/db')
 const app =express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use('/produtos', produtosRouter);
+app.use('/produtos', eventosRouter);
 
 
 
 
-db.testarConexao();
+testarConexao();
 
 db.sync({force:false})
 .then(() => {
@@ -23,5 +23,6 @@ db.sync({force:false})
 .catch(err => {
      console.log("Erro", err)
 });
+
 
 
