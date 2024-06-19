@@ -1,6 +1,6 @@
 const express = require('express');
 const userRouter = require('./routes/user');
-const {db, testarConexao} = require('./config/db')
+const {sequelize, testarConexao} = require('./config/db')
 const app =express();
 
 app.use(express.json());
@@ -14,7 +14,7 @@ app.use('auth', userRouter);
 
 testarConexao();
 
-db.sync({force:false})
+sequelize.sync({force:false})
 .then(() => {
     console.log('Tabelas sincronizadas com o banco de dados.')
     app.listen(8081);
